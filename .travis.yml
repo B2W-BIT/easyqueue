@@ -15,5 +15,6 @@ deploy:
   user: sievetech
   on:
     tags: true
+    python: "3.6"
   password:
     secure: hY/fAGYnR6kDE7NeVRcspOGZoZFfMLJVqyymObzDlLiYQSsnkU6CFIRlYP+TCYeR6E8Z/uQ72lRPqMBr0lVBf2T8M5e7TKlps5Iu5ZpGZYAeN8pARNL7Akv3P+tzv8nhnd069dKCT1RKspkjpHW3uscxaXSV2kQ+iTy8nzmJl+wcF+u0k0b/n8HLjsC3owy022dz4VsMLHBc9RC0MY4C5PDwkqouN78f7sCJoW5RH47G+SeJlbRJb7ftiI3pBbar39mvJNPCR9bBwBJ5sIjl4ZZbIpOYORFoRSWaDELuBS0q8UMnKURXftM/DogxPWvqYNmEKY0e2vd8Pu7+Rk7SErett5P2L9bLJPbMxWT5NrzUB/anfCBfHdaw+G38kmAZ2pn3AGYMeIn1YBdHvW3lp17BvXgsUiJ6dliaz6B+OVZumaGFlv2ED6ZovWWQ7VnMuJbybCWCr60ewIWZbcJhpdW/uBqzK0dbF3kyQkTxuXux4+hFYn7IpBWDAuTmYJdMv3zeg0BAaEjekFZEDBoJNQiqLY4uHQj+rZQQlLNkvLVna0Q5zB+N1/Ogd6Ig/XXiQ4Xyslu+u3SaPJlYDclQbwn5PB57iUT2YCljdU44F6b3mjmB6459aunOcrdSoSxrb1jJeZn/zbBN4SbRCUI/RQ4sijMXsFIW/JWrN0kcp+g=
