@@ -68,6 +68,7 @@ class AsyncQueue(BaseJsonQueue):
         self._protocol = None  # type: aioamqp.protocol.AmqpProtocol
         self._transport = None  # type: asyncio.BaseTransport
         self._channel = None  # type: aioamqp.channel.Channel
+        self._delivery_channel = None  # type: aioamqp.channel.Channel
         self.seconds_between_conn_retry = seconds_between_conn_retry
         self.is_running = True
         self.logger = logger
@@ -93,7 +94,7 @@ class AsyncQueue(BaseJsonQueue):
     @property
     def is_connected(self):
         # todo: This may not be enough
-        return self._channel and self._channel.is_open
+        return (self._channel and self._channel.is_open) and (self._delivery_channel and self._delivery_channel.is_open)
 
     async def connect(self):
         async with self._connection_lock:
@@ -103,6 +104,7 @@ class AsyncQueue(BaseJsonQueue):
             conn = await aioamqp.connect(**self.connection_parameters)
             self._transport, self._protocol = conn
             self._channel = await self._protocol.channel()
+            self._delivery_channel = await self._protocol.channel()
 
     async def close(self):
         if not self.is_connected:
@@ -113,11 +115,11 @@ class AsyncQueue(BaseJsonQueue):
 
     @_ensure_connected
     async def ack(self, delivery_tag: int):
-        return await self._channel.basic_client_ack(delivery_tag)
+        return await self._delivery_channel.basic_client_ack(delivery_tag)
 
     @_ensure_connected
     async def reject(self, delivery_tag: int, requeue=False):
-        return await self._channel.basic_reject(delivery_tag=delivery_tag,
+        return await self._delivery_channel.basic_reject(delivery_tag=delivery_tag,
                                                 requeue=requeue)
 
     @_ensure_connected
@@ -162,13 +164,13 @@ class AsyncQueue(BaseJsonQueue):
 
     async def _handle_callback(self, callback, **kwargs):
         """
-        Chains the callback coroutine into a try/except and calls 
-        `on_message_handle_error` in case of failure, avoiding unhandled 
+        Chains the callback coroutine into a try/except and calls
+        `on_message_handle_error` in case of failure, avoiding unhandled
         exceptions.
-         
-        :param callback: 
-        :param kwargs: 
-        :return: 
+
+        :param callback:
+        :param kwargs:
+        :return:
         """
         try:
             return await callback(**kwargs)
