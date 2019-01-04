@@ -1,7 +1,7 @@
 import os
 from setuptools import setup, find_packages
 
-__VERSION__ = '2.0.0-rc3'
+__VERSION__ = '2.1.0-dev'
 
 BASE_PATH = os.path.dirname(__file__)
 
