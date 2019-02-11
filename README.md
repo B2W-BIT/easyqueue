@@ -15,3 +15,5 @@ An easy way to asynchronously handle AMQP queue consumption.
 This project is currently archived and is now part of [asyncworker](https://github.com/B2W-BIT/async-worker).
 Please refer to asyncworker documentation on how to write your async workers for dealing with RabbitMQ messages.
 
+This is the Pull Requests that merged both projects: https://github.com/B2W-BIT/async-worker/pull/90
+
